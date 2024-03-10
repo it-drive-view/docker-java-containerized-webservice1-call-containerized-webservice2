@@ -1,7 +1,6 @@
 package com.coussy.docker.microservice1.api;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
@@ -18,7 +17,7 @@ public class MicroService2HttpClient {
     private final OkHttpClient okHttpClient;
     private final String url;
 
-    public MicroService2HttpClient(OkHttpClient okHttpClient, String url ) {
+    public MicroService2HttpClient(OkHttpClient okHttpClient, String url) {
         this.okHttpClient = okHttpClient;
         this.url = url;
     }
@@ -35,7 +34,7 @@ public class MicroService2HttpClient {
         HttpUrl httpUrl = HttpUrl.parse("%s/test".formatted(url));
         Request request = new Request.Builder().get().url(httpUrl).build();
         Response response = callClient(request);
-        String result = fromJson(response, new TypeReference<String>() {});
+        String result = fromJson(response);
         response.close();
         return result;
     }
@@ -53,15 +52,18 @@ public class MicroService2HttpClient {
         }
     }
 
-    private <T> T fromJson(Response response, TypeReference<T> valueTyperRef)  {
+    private String fromJson(Response response) {
 
         try {
             return OBJECT_MAPPER
                     .disable(DeserializationFeature.ADJUST_DATES_TO_CONTEXT_TIME_ZONE)
-                    .readValue(response.body().toString(), valueTyperRef);
+                    .readValue(response.body().string(), String.class);
         } catch (JsonProcessingException e) {
-            throw new IllegalStateException("unable to deserialize object");
+            throw new RuntimeException("unable to deserialize object.");
+        } catch (IOException e) {
+            throw new RuntimeException("unable to deserialize object.");
         }
+
     }
 
 }

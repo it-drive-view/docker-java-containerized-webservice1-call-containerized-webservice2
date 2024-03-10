@@ -10,7 +10,7 @@ public class Controller {
 
     @GetMapping("/test")
     public String test() {
-        return "service microservice2 available.";
+        return "\"service microservice2 available.\"";
     }
 
 }
