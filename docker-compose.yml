@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  srv-microservice1:
+    image: java-ms1-image:latest
+    container_name: microservice1
+    build:
+      context: ./microservice1
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8081"
+  srv-microservice2:
+    image: java-ms2-image:latest
+    container_name: microservice2
+    build:
+      context: ./microservice2
+      dockerfile: Dockerfile
+      
+      
+
+    
+    
+    
+    
+    
+

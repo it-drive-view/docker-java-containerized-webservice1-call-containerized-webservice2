@@ -1,5 +1,15 @@
 # docker-java-containerized-webservice1-call-containerized-webservice2
 
+1) clone the project 
+
+2) go to folder microservice1
+3) create jar with linux command : 
+   mvn clean package 
+   
+4) go to folder microservice2
+5) create jar with linux command : 
+   mvn clean package 
+
 ==================================================================
 OPTION A : build and launch containers manually
 ==================================================================
@@ -69,8 +79,56 @@ OPTION A : build and launch containers manually
 OPTION B : build and launch containers using docker-compose
 ==================================================================
 
-1) go to folder microservice1
-2) build image with linux command :
+1) go to the root folder (where you can find docker-compose.yml file)
+2) build the 2 images with linux command :
+   docker-compose build --no-cache
+   
+3) we can check we have 2 images created by doing : 
+   docker images | grep java
+
+4) start the 2 containers with linux command :
+   docker-compose up 
+   
+4) we can check we have 2 running containers by doing :
+   docker ps | grep java 
+   
+Now, we can test : 
+
+4) From localhost, we do :
+   curl -X GET http://localhost:8081/api/v1/call/microservice2
+	
+5) this is succesfull !
+
+        Explanation : 
+        - there is port mapping 8081:8081 so we can contact container1 from localhost
+        - container1 and container2 are on the same network (java-network) so container1 can contact container2
+          (no port mapping between container1 and container2)
+        - container1 can call the domain microservice2 because docker created a DNS
+
+
+
+
+
+
+
+ 
+  
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+
+
+
+
+
 
 
 
