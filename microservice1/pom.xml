@@ -17,6 +17,7 @@
 	<properties>
 		<java.version>17</java.version>
 		<okHttp.version>4.12.0</okHttp.version>
+		<mockwebserver.version>4.7.2</mockwebserver.version>
 	</properties>
 
 	<dependencies>
@@ -36,6 +37,13 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+		<dependency>
+			<groupId>com.squareup.okhttp3</groupId>
+			<artifactId>mockwebserver</artifactId>
+			<version>${mockwebserver.version}</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
