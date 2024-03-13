@@ -1,6 +1,6 @@
-package com.coussy.docker.microservice1.Configuration;
+package com.coussy.docker.microservice1.configuration;
 
-import com.coussy.docker.microservice1.api.MicroService2HttpClient;
+import com.coussy.docker.microservice1.http.MicroService2HttpClient;
 import okhttp3.OkHttpClient;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringBootConfiguration;

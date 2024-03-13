@@ -1,5 +1,6 @@
-package com.coussy.docker.microservice1.api;
+package com.coussy.docker.microservice1.http;
 
+import com.coussy.docker.microservice1.exception.DependencyError;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;

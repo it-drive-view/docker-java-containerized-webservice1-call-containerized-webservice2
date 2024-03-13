@@ -1,5 +1,6 @@
 package com.coussy.docker.microservice1.api;
 
+import com.coussy.docker.microservice1.service.BusinessService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class Controller {
 
     @Autowired
-    MicroService2HttpClient microService2HttpClient;
+    BusinessService businessService;
 
     @GetMapping("/test")
     public String test() {
@@ -19,8 +20,7 @@ public class Controller {
 
     @GetMapping("/call/microservice2")
     public String microservice2() {
-        return "From microservice1 : expression returned from microservice2 \n " +
-                microService2HttpClient.callMicroService2() + "\n";
+        return businessService.callMicroservice2();
     }
 
 }

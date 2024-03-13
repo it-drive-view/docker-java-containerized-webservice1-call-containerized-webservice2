@@ -1,4 +1,4 @@
-package com.coussy.docker.microservice1.api;
+package com.coussy.docker.microservice1.exception;
 
 public class DependencyError extends RuntimeException {
 
