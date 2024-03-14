@@ -1,5 +1,24 @@
 # calling a java containerized application from another one
 
+## ------------------------------
+PURPOSE
+## ------------------------------
+
+java application #1 containerized --> docker container started as microservice1
+java application #2 containerized --> docker container started as microservice2
+
+http request #1
+localhost --> request microservice1 (with port mapping)
+              curl -X GET http://localhost:8081/api/v1/call/microservice2
+
+http request #2
+microservice1 --> request microservice2 (using classical DNS on bridge docker network)
+                  http://microservice2:8082/api/v1/test
+
+## ------------------------------
+HOW TO MAKE IT WORK
+## ------------------------------
+
 1) clone the project 
 
 2) go to folder microservice1
@@ -10,7 +29,9 @@
 5) create jar with linux command : 
    mvn clean package 
 
-## OPTION A : build and launch containers manually (without docker-compose)
+### 
+### SCENARIO A : build and launch containers manually (without docker-compose)
+### 
 
 1) go to folder microservice1
 2) build image with linux command :
@@ -77,7 +98,7 @@ How it works :
   (no port mapping between container1 and container2)
 - container1 can call the domain name microservice2 because docker automatically created a DNS.
 
-## OPTION B : build and launch containers using docker-compose
+## SCENARIO B : build and launch containers using docker-compose
 
 1) go to the root folder (where you can find docker-compose.yml file)
 2) build the 2 images with linux command :
