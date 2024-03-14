@@ -1,4 +1,3 @@
-# docker-java-containerized-webservice1-call-containerized-webservice2
 
 1) clone the project 
 
@@ -10,9 +9,7 @@
 5) create jar with linux command : 
    mvn clean package 
 
-============================================================================
-  OPTION A : build and launch containers manually (without docker-compose)
-============================================================================
+# OPTION A : build and launch containers manually (without docker-compose)
 
 1) go to folder microservice1
 2) build image with linux command :
@@ -40,56 +37,46 @@
    
 10) we can check we have 2 running containers by doing :
    docker ps | grep java 
-   
-   
-	=================================================================================
-	= calling microservice2 from inside container1 (microservice1)
-	= 
-	= (this is not nominal usage : this is just a test to illustrate how it works)
-	=================================================================================
-	
-	A) we go inside container1 and launch a bash :
-	   docker exec <microservice1-id> bash 
+    
+### calling microservice2 from inside container1 (microservice1)
+### (this is not nominal usage : this is just a test to illustrate how it works)
+
+A) we go inside container1 and launch a bash :
+   docker exec <microservice1-id> bash 
 	   
-        B) from inside container1, we try to call microservice2
+B) from inside container1, we try to call microservice2
            curl -X GET http://microservice2:8082/api/v1/test
            
-        C) this is succesfull !
+C) this is succesfull !
         
-        How it works : 
-        - container1 and container2 are on the same network (java-network) so container1 can contact container2
-        - container1 can call the domain name microservice2 because docker automatically created a DNS (microservice2 is the name of the container)
+How it works : 
+- container1 and container2 are on the same network (java-network) so container1 can contact container2
+- container1 can call the domain name microservice2 because docker automatically created a DNS (microservice2 is the name of the container)
         
-        remark : 
-        - localhost can't contact : 
-          curl -X GET http://microservice2:8082/api/v1/test
-          because localhost and containers are not on the same network
-        
-	=================================================================================
-	== calling microservice2 from localhost
-	== 
-	== THIS IS NOMINAL USAGE	
-	=================================================================================
+remark : 
+- localhost can't contact : 
+  curl -X GET http://microservice2:8082/api/v1/test
+  because localhost and containers are not on the same network 
 
-	we will do : 
-	localhost ==> call container1 (with port mapping) :   http://localhost:8081/api/v1/call/microservice2
-	container1 ==> call container2 (by classic network) : http://microservice2:8082/api/v1/test
+### calling microservice2 from localhost
+### THIS IS NOMINAL USAGE
+
+we will do : 
+localhost ==> call container1 (with port mapping) :   http://localhost:8081/api/v1/call/microservice2
+container1 ==> call container2 (by classic network) : http://microservice2:8082/api/v1/test
 	
-	A) From localhost, we do :
-	curl -X GET http://localhost:8081/api/v1/call/microservice2
+A) From localhost, we do :
+   curl -X GET http://localhost:8081/api/v1/call/microservice2
 	
-	B) this is succesfull !
+B) this is succesfull !
 	
-        How it works : 
-        - there is port mapping 8081:8081 so we can contact container1 from localhost using local port 8081
-        - container1 and container2 are on the same network (java-network) so container1 can contact container2
-          (no port mapping between container1 and container2)
-        - container1 can call the domain name microservice2 because docker automatically created a DNS.
-        
-        
-============================================================================
-OPTION B : build and launch containers using docker-compose
-============================================================================
+How it works : 
+- there is port mapping 8081:8081 so we can contact container1 from localhost using local port 8081
+- container1 and container2 are on the same network (java-network) so container1 can contact container2
+  (no port mapping between container1 and container2)
+- container1 can call the domain name microservice2 because docker automatically created a DNS.
+
+# OPTION B : build and launch containers using docker-compose
 
 1) go to the root folder (where you can find docker-compose.yml file)
 2) build the 2 images with linux command :
