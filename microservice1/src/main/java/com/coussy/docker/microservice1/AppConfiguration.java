@@ -1,13 +1,13 @@
-package com.coussy.docker.microservice1.configuration;
+package com.coussy.docker.microservice1;
 
 import com.coussy.docker.microservice1.http.MicroService2HttpClient;
 import okhttp3.OkHttpClient;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
-@SpringBootConfiguration
-public class Configuration {
+@Configuration
+public class AppConfiguration {
 
     @Bean
     OkHttpClient okHttpClient() {
