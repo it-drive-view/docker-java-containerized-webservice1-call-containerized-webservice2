@@ -1,8 +1,6 @@
 # calling a java containerized application from another one
 
-## ------------------------------
-PURPOSE
-## ------------------------------
+## ------- PURPOSE
 
 java application #1 containerized --> docker container started as microservice1
 java application #2 containerized --> docker container started as microservice2
@@ -15,9 +13,7 @@ http request #2
 microservice1 --> request microservice2 (using classical DNS on bridge docker network)
                   http://microservice2:8082/api/v1/test
 
-## ------------------------------
-HOW TO MAKE IT WORK
-## ------------------------------
+## ------- HOW TO MAKE IT WORK
 
 1) clone the project 
 
@@ -29,9 +25,7 @@ HOW TO MAKE IT WORK
 5) create jar with linux command : 
    mvn clean package 
 
-### 
 ### SCENARIO A : build and launch containers manually (without docker-compose)
-### 
 
 1) go to folder microservice1
 2) build image with linux command :
@@ -60,8 +54,7 @@ HOW TO MAKE IT WORK
 10) we can check we have 2 running containers by doing :
    docker ps | grep java 
     
-### --> calling microservice2 from inside container1 (microservice1)
-### (this is not nominal usage : this is just a test to illustrate how it works)
+### [NOT NOMINAL USAGE : this is just a test to illustrate how it works] --> calling microservice2 from inside container1 (microservice1) 
 
 A) we go inside container1 and launch a bash :
    docker exec <microservice1-id> bash 
@@ -80,8 +73,7 @@ remark :
   curl -X GET http://microservice2:8082/api/v1/test
   because localhost and containers are not on the same network 
 
-### --> calling microservice2 from localhost
-### THIS IS NOMINAL USAGE
+### [NOMINAL USAGE] --> calling microservice2 from localhost 
 
 we will do : 
 localhost ==> call container1 (with port mapping) :   http://localhost:8081/api/v1/call/microservice2
